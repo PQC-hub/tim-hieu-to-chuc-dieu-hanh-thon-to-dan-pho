@@ -180,8 +180,16 @@ summary{cursor:pointer;font-weight:700;padding:12px 16px;background:var(--card);
 </style>
 <style>
 .pg{max-width:640px}
-.hbox{background:linear-gradient(135deg,#2E6DB4,#1F4E86);border-radius:22px;padding:22px 18px;margin:max(14px,env(safe-area-inset-top)) 0 12px;box-shadow:0 6px 18px rgba(31,78,134,.28)}.hbox h1{color:#fff;text-transform:uppercase;text-align:center;font-size:clamp(17px,4.9vw,22px);line-height:1.35;letter-spacing:.02em;font-weight:800;margin:0;text-wrap:balance}.grow{display:flex;align-items:center;gap:10px;margin:0 0 14px}.grow .gr{flex:1;font-size:18px;font-weight:700;color:var(--ink);margin:0}.grow .tbtn{flex:none}.hb2{display:flex;align-items:center;gap:10px;padding:max(14px,env(safe-area-inset-top)) 0 4px}.hb2 .mtitle{padding:0;font-size:22px;flex:1}
-:root{--tabh:calc(72px + env(safe-area-inset-bottom))}body{padding-bottom:var(--tabh)}.nav{bottom:var(--tabh)!important}.topb h1{text-wrap:balance}.lk2{background:none;border:0;color:var(--red);font-size:14px;text-decoration:underline;padding:2px 0;text-align:left}
+[data-act=home].tbtn{width:42px!important;height:42px!important;color:var(--red);border:2px solid var(--red)!important;flex:none}[data-act=home].tbtn svg{display:block}
+.bar{padding:6px 0!important;padding-top:max(6px,env(safe-area-inset-top))!important}.bar .wrap{gap:7px!important}.bar .tbtn{width:36px;height:36px;font-size:16px;flex:none}.bar .t1{font-size:12px;white-space:nowrap}.bar .prog{height:6px;margin-top:3px}.bar .btn{padding:7px 12px!important;font-size:14px}
+.nav{padding:6px 0!important;padding-bottom:max(6px,env(safe-area-inset-bottom))!important}.nav .btn{padding:11px 10px}
+.tabs.cpt{padding-top:0}.tabs.cpt button{flex-direction:row;justify-content:center;gap:6px;font-size:14px;padding:8px 0;border-top-width:2px}.tabs.cpt .ic{font-size:17px}
+
+.card.main{padding:14px}.qtags{margin-bottom:8px!important;flex-wrap:nowrap!important;overflow:hidden}.qtags .tag{font-size:11px;padding:2px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.qtext{font-size:clamp(18px,4.6vw,21px)!important;line-height:1.38!important;margin-bottom:10px!important}.opt .tx{font-size:clamp(15px,4vw,17px)!important}.opt{padding:10px 12px!important}.opts{gap:8px!important}
+@media(max-height:800px){.qtags .tag:not(.red){display:none}}
+.hbox{background:linear-gradient(135deg,#2E6DB4,#1F4E86);border-radius:24px;padding:28px 10px;margin:max(14px,env(safe-area-inset-top)) 0 12px;box-shadow:0 6px 18px rgba(31,78,134,.28)}.hbox h1{color:#fff;text-transform:uppercase;text-align:center;font-size:clamp(18px,5.8vw,28px);line-height:1.35;letter-spacing:.01em;font-weight:800;margin:0;text-wrap:balance}.grow{display:flex;align-items:center;gap:10px;margin:0 0 14px}.grow .gr{flex:1;font-size:18px;font-weight:700;color:var(--ink);margin:0}.grow .tbtn{flex:none}.hb2{display:flex;align-items:center;gap:10px;padding:max(14px,env(safe-area-inset-top)) 0 4px}.hb2 .mtitle{padding:0;font-size:22px;flex:1}
+:root{--tabh:0px}body:has(.tabs){--tabh:calc(72px + env(safe-area-inset-bottom))}body{padding-bottom:var(--tabh)}.nav{bottom:var(--tabh)!important}.topb h1{text-wrap:balance}.lk2{background:none;border:0;color:var(--red);font-size:14px;text-decoration:underline;padding:2px 0;text-align:left}
 .topb{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:max(16px,env(safe-area-inset-top)) 0 12px}
 .topb h1{font-size:clamp(19px,5.2vw,23px);line-height:1.25;margin:0;color:var(--ink);letter-spacing:0}.gr{color:var(--muted);font-size:16px;margin-top:2px}
 .av{width:46px;height:46px;border-radius:50%;border:2px solid var(--red);background:var(--red-bg);color:var(--red);font-weight:800;font-size:20px;flex:none;display:grid;place-items:center}
@@ -321,27 +329,27 @@ var tab='home',NAME=(ls('qdthon_name')||'');
 var WR={};try{JSON.parse(ls('qdthon_wrong')||'[]').forEach(function(i){WR[i]=1})}catch(e){}
 function setWrong(i,w){var had=!!WR[i];if(w&&!had)WR[i]=1;else if(!w&&had)delete WR[i];else return;ls('qdthon_wrong',JSON.stringify(Object.keys(WR).map(Number)))}
 function ring(p){var c=2*Math.PI*34;return '<svg class="ring2" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="34" fill="none" stroke="var(--line)" stroke-width="9"/><circle cx="42" cy="42" r="34" fill="none" stroke="var(--red)" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(c*p/100).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 42 42)"/><text x="42" y="48" text-anchor="middle" font-size="19" font-weight="700" fill="currentColor">'+p+'%</text></svg>'}
-function navHtml(){var cur=(S&&S.view==='stats')?'stats':(S&&(S.view==='quiz'||S.view==='result'))?'':tab;var it=[['lib','📚','Thư viện','tab'],['stats','📊','Thống kê','stats']];
- return '<nav class="tabs">'+it.map(function(x){return '<button class="'+(cur===x[0]?'on':'')+'" data-act="'+x[3]+'" data-t="'+x[0]+'"><span class="ic">'+x[1]+'</span>'+x[2]+'</button>'}).join('')+'</nav>'}
+function navHtml(){if(!(S===null&&tab==='home'))return '';var cur=(S&&S.view==='stats')?'stats':(S&&(S.view==='quiz'||S.view==='result'))?'':tab;var it=[['lib','📚','Thư viện','tab'],['stats','📊','Thống kê','stats']];
+ return '<nav class="tabs'+((S&&(S.view==='quiz'||S.view==='result'))?' cpt':'')+'">'+it.map(function(x){return '<button class="'+(cur===x[0]?'on':'')+'" data-act="'+x[3]+'" data-t="'+x[0]+'"><span class="ic">'+x[1]+'</span>'+x[2]+'</button>'}).join('')+'</nav>'}
 function pendOv(){return '<div class="ov"><div class="card"><h3>Bắt đầu bài mới?</h3><p>Bạn đang làm dở một bài ở '+(pend.mode==='exam'?'Thi thử':'Chế độ học')+'. Bắt đầu bài mới sẽ thay thế tiến độ đó.</p><div class="row"><button class="btn" data-act="pend_no">Giữ bài cũ</button><button class="btn pri" data-act="pend_ok">Bắt đầu bài mới</button></div></div></div>'}
 function viewHome(){
  var seen=Object.keys(SEEN).length,tot=BANK.length,p=pct(seen,tot),rl=readProg('learn');
- var h='<div class="wrap pg"><div class="hbox"><h1>Tìm hiểu hoạt động thôn, tổ dân phố dành cho cán bộ cơ sở</h1></div><div class="grow"><div class="gr">\ud83d\udc4b Chào mừng bạn đã đến</div>'+sbtn()+tbtn()+'</div>';
+ var h='<div class="wrap pg"><div class="hbox"><h1>Tìm hiểu hoạt động<br>thôn, tổ dân phố<br>dành cho cán bộ cơ sở</h1></div><div class="grow"><div class="gr">\ud83d\udc4b Chào mừng bạn đã đến</div>'+sbtn()+tbtn()+'</div>';
  h+='<div class="mgrid">'+MODS.map(function(m,n){var ix=modIdx(m),sn=ix.filter(function(i){return SEEN[i]}).length,pp=pct(sn,ix.length);
   return '<button class="mcard" data-act="mod" data-n="'+n+'"><div class="mtop"><span class="mic" style="background:'+m.c+'22">'+m.ic+'</span><span class="mname">Phần '+esc(m.t.charAt(0).toLowerCase()+m.t.slice(1))+'</span></div><div class="md">'+esc(m.d)+'</div><div class="mm">'+ix.length+' bài · '+sn+'/'+ix.length+' hoàn thành</div><div class="mpr"><span class="mpb"><i style="width:'+pp+'%;background:'+m.c+'"></i></span><span class="mpp">'+pp+'%</span></div></button>'}).join('')+'</div>';
- h+='<div class="pcard"><h2>Tiến trình học tập chung</h2><div class="prow">'+ring(p)+'<div class="pt"><b>'+p+'%</b><span>'+seen+'/'+tot+' bài đã học</span><button class="btn pri" data-act="cont">'+(rl||seen?'Tiếp tục học bài':'Bắt đầu học bài')+'</button></div></div><button class="btn wide" data-act="rand20" style="margin-top:0">🎲 Học thử ngẫu nhiên 20 câu</button><button class="btn wide" data-act="tab" data-t="me">📋 Làm trọn bộ '+tot+' câu · ôn lại · thang điểm</button></div>';
+ h+='<div class="pcard"><h2>Tiến trình học tập chung</h2><div class="prow">'+ring(p)+'<div class="pt"><b>'+p+'%</b><span>'+seen+'/'+tot+' bài đã học</span><button class="btn pri" data-act="cont">'+(rl||seen?'Tiếp tục học bài':'Bắt đầu học bài')+'</button></div></div><button class="btn wide" data-act="rand20" style="margin-top:0">🎲 Học thử ngẫu nhiên 20 câu</button><button class="btn wide" data-act="tab" data-t="me">📋 Học trọn bộ '+tot+' câu · ôn lại · thang điểm</button></div>';
  h+='<p class="privacy">Tài liệu học tập · Biên soạn: Phạm Quang Chinh<br>Theo Nghị định 185/2026/NĐ-CP, Luật Thực hiện dân chủ ở cơ sở, Luật Đất đai 2024</p></div><div style="height:90px"></div>';
  return h;
 }
 function viewLib(){
- var h='<div class="wrap pg"><div class="hb2"><button class="tbtn" data-act="home" aria-label="Về trang đầu">⌂</button><h1 class="mtitle">Thư viện văn bản</h1></div><p class="privacy" style="text-align:left;margin:0 0 12px">Văn bản gốc để đối chiếu khi làm bài.</p>';
+ var h='<div class="wrap pg"><div class="hb2"><button class="tbtn" data-act="home" aria-label="Về trang đầu"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg></button><h1 class="mtitle">Thư viện văn bản</h1></div><p class="privacy" style="text-align:left;margin:0 0 12px">Văn bản gốc để đối chiếu khi làm bài.</p>';
  h+=REF.map(function(r){return '<div class="card libc"><b>'+esc(r[0])+'</b><p>'+esc(r[1])+'</p><a class="btn pri" href="'+esc(r[2])+'" target="_blank" rel="noopener">Mở văn bản gốc ↗</a></div>'}).join('');
  h+='<div class="note">Lưu ý: dự án Luật Đất đai (sửa đổi) đã được Ủy ban Thường vụ Quốc hội thống nhất trình Quốc hội (17/11/2026) nhưng chưa được thông qua; Luật Đất đai 2024 vẫn là văn bản đang áp dụng. Khi áp dụng cần đối chiếu văn bản đang có hiệu lực. Bộ câu hỏi là tài liệu học tập, không thay thế văn bản pháp luật.</div></div><div style="height:90px"></div>';
  return h;
 }
 function meTop(){
  var wn=Object.keys(WR).length;
- return '<div class="hb2"><button class="tbtn" data-act="home" aria-label="Về trang đầu">⌂</button><h1 class="mtitle">Làm trọn bộ '+BANK.length+' câu</h1></div>'
+ return '<div class="hb2"><button class="tbtn" data-act="home" aria-label="Về trang đầu"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg></button><h1 class="mtitle">Làm trọn bộ '+BANK.length+' câu</h1></div>'
  +'<div class="card" style="margin:12px 0">'
  +(wn?'<button class="btn pri wide" data-act="review" style="margin-top:0">Ôn lại '+wn+' câu cần ôn</button>':'<p class="privacy" style="text-align:left;margin:0">Các câu làm sai sẽ hiện ở đây để bạn ôn lại.</p>')
  +'<button class="btn wide" data-act="resetprog">Xóa tiến độ học trên máy này</button></div>';
@@ -349,15 +357,13 @@ function meTop(){
 function viewStart(){return tab==='lib'?viewLib():tab==='me'?viewMe()+'<div style="height:90px"></div>':viewHome()}
 function viewMe(){
  var h='<div class="wrap pg"><div class="hero">'+meTop();
- h+='<div class="modes"><button class="mode'+(mode==='learn'?' on':'')+'" data-act="mode" data-m="learn"><h3>📘 Chế độ học</h3><p>Chọn xong thấy ngay đáp án đúng. Nên bắt đầu từ đây.</p></button>';
- h+='<button class="mode'+(mode==='exam'?' on':'')+'" data-act="mode" data-m="exam"><h3>📝 Thi thử</h3><p>Được đổi đáp án, đánh dấu câu cần xem lại; đáp án hiện sau khi nộp bài.</p></button></div>';
+ mode='learn';h+='<p class="privacy" style="text-align:left;margin:0 0 12px">📘 Chế độ học: chọn xong thấy ngay đáp án đúng.</p>';
  var pg=readProg(mode),oth=readProg(mode==='exam'?'learn':'exam');
  if(pg){var dn=Object.keys(pg.ans).length;h+='<div class="card" style="margin-bottom:12px;border:2px solid var(--gold)"><b>Bạn đang làm dở '+(mode==='exam'?'bài Thi thử':'bài ở Chế độ học')+'</b><p style="margin:4px 0 12px;color:var(--muted);font-size:14px">'+'đã làm '+dn+'/'+pg.idx.length+' câu · đang ở câu '+(pg.cur+1)+' · '+mmss(pg.el)+'</p><button class="go" data-act="resume">Làm tiếp →</button></div><button class="btn" data-act="start" style="width:100%">Bắt đầu lại '+(mode==='exam'?'Thi thử':'Chế độ học')+' từ đầu (xóa tiến độ cũ)</button>'}
  else h+='<button class="go" data-act="start">Bắt đầu làm bài →</button>';
- if(oth)h+='<p class="privacy" style="margin-top:8px">ℹ️ Bạn còn một bài đang làm dở ở '+(mode==='exam'?'Chế độ học':'Thi thử')+' — bấm thẻ đó ở trên để làm tiếp.</p>';
  if(askRestart)h+='<div class="ov"><div class="card"><h3>Bắt đầu lại?</h3><p>Tiến độ đang lưu của '+(mode==='exam'?'Thi thử':'Chế độ học')+' sẽ bị xóa. Tiến độ của chế độ còn lại không bị ảnh hưởng.</p><div class="row"><button class="btn" data-act="rs_no">Giữ lại</button><button class="btn pri" data-act="rs_ok">Xóa và bắt đầu lại</button></div></div></div>';
  h+='<p class="privacy" style="margin-top:8px">💾 Tiến độ làm bài tự động lưu trên thiết bị này, bạn có thể thoát ra và làm tiếp lần sau.</p>';
- if(ENDPOINT)h+='<div style="margin-top:12px"><button class="btn" data-act="stats" style="width:100%">📊 Thống kê chung</button></div><p class="privacy">Kết quả khi làm đủ 91 câu được gửi đi để tổng hợp chung: không ghi tên, chỉ kèm mã ngẫu nhiên lưu trên thiết bị này.</p>';
+ if(ENDPOINT)h+='<p class="privacy">Kết quả khi làm đủ 91 câu được gửi đi để tổng hợp chung: không ghi tên, chỉ kèm mã ngẫu nhiên lưu trên thiết bị này.</p>';
  if(best)h+='<p class="best">Điểm cao nhất của bạn: <b>'+Math.round(best.s*10)+'/100</b> ('+esc(best.g)+')</p>';
  h+='<div class="ladder"><h2>Thang điểm</h2><div class="lad">'+GRADES.map(function(g,i){var rng=i===0?'từ '+g.min*10+' điểm':(i===GRADES.length-1?'dưới '+GRADES[i-1].min*10+' điểm':'từ '+g.min*10+' điểm');if(i===GRADES.length-1)rng='dưới 50 điểm';return '<div><b>'+esc(g.name)+'</b><span>'+rng+' · <em>'+esc(g.note)+'</em></span></div>'}).join('')+'</div><p class="best" style="text-align:left">Mỗi câu đúng khoảng '+fmt(100/BANK.length)+' điểm (tổng 100 điểm); điểm làm tròn đến số nguyên; câu sai hoặc bỏ trống không bị trừ.</p></div>';
  h+='</div></div>';
@@ -366,7 +372,7 @@ function viewMe(){
 function viewQuiz(){
  var q=S.qs[S.cur],k=S.cur,n=S.qs.length,a=S.ans[k];
  var answered=Object.keys(S.ans).length;
- var h='<div class="bar"><div class="wrap"><button class="tbtn" data-act="home" aria-label="Về trang đầu">⌂</button><div class="mid"><div class="t1"><span>Câu '+(k+1)+'/'+n+' · đã làm '+answered+'</span><span>⏱ <span id="tm">'+mmss(S.el)+'</span></span></div><div class="prog"><i style="width:'+pct(answered,n)+'%"></i></div></div>'+sbtn()+tbtn()+'<button class="btn pri" data-act="submit" style="padding:8px 14px">Nộp bài</button></div></div>';
+ var h='<div class="bar"><div class="wrap"><button class="tbtn" data-act="home" aria-label="Về trang đầu"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg></button><div class="mid"><div class="t1"><span>Câu '+(k+1)+'/'+n+' · làm '+answered+'</span><span>⏱ <span id="tm">'+mmss(S.el)+'</span></span></div><div class="prog"><i style="width:'+pct(answered,n)+'%"></i></div></div>'+sbtn()+tbtn()+'<button class="btn pri" data-act="submit">Nộp</button></div></div>';
  h+='<div class="wrap"><div class="qlay"><div class="card main"><div class="qtags"><a class="tag red lnk" href="'+esc(q.b.u||THEMES[q.b.s].u)+'" target="_blank" rel="noopener" title="Mở văn bản gốc để đối chiếu">'+esc(q.b.r)+' ↗</a><a class="tag lnk" href="'+esc(q.b.u||THEMES[q.b.s].u)+'" target="_blank" rel="noopener" title="Mở văn bản gốc để đối chiếu">'+esc(THEMES[q.b.s].t)+' ↗</a></div>';
  h+='<p class="qtext">'+esc(q.b.q)+'</p><div class="opts">'+optHtml(q,k,'live')+'</div>';
  if(S.mode==='learn'&&a!==undefined)h+=expHtml(q,k);
@@ -380,7 +386,7 @@ function viewQuiz(){
 }
 function viewResult(){
  var r=S.res,g=gradeOf(r.score);
- var h='<div class="bar"><div class="wrap"><button class="tbtn" data-act="home" aria-label="Về trang đầu">⌂</button><div class="mid"><b>Kết quả</b></div>'+sbtn()+tbtn()+'</div></div><div class="wrap" style="padding-top:18px">';
+ var h='<div class="bar"><div class="wrap"><button class="tbtn" data-act="home" aria-label="Về trang đầu"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg></button><div class="mid"><b>Kết quả</b></div>'+sbtn()+tbtn()+'</div></div><div class="wrap" style="padding-top:18px">';
  h+='<div class="card rtop"><div class="ring"><svg viewBox="0 0 120 120"><circle class="tr" cx="60" cy="60" r="52"/><circle class="fg" id="rfg" cx="60" cy="60" r="52"/></svg><div class="num"><b id="rn">0</b><small>/ 100 điểm</small></div></div><div><span class="gb">'+esc(g.name)+'</span><span class="bdg">'+badgeOf(r.score)+'</span><p style="margin:6px 0 0">'+esc(g.note)+'</p><p class="best" style="text-align:inherit">Thời gian: '+mmss(S.el)+' · '+(S.mode==='learn'?'Chế độ học':'Thi thử')+'</p></div></div>';
  if(S.sent)h+='<p class="best" style="margin:10px 0 0">✔ Kết quả đã được gửi đi (không ghi tên, chỉ kèm mã ngẫu nhiên lưu trên thiết bị này). Máy chủ không báo xác nhận nên chưa thể bảo đảm đã ghi nhận.</p>';
  h+='<div class="rstats"><div class="rs"><b>'+r.n+'</b><small>tổng số câu</small></div><div class="rs ok"><b>'+r.c+'</b><small>đúng</small></div><div class="rs bad"><b>'+r.wr+'</b><small>sai</small></div><div class="rs"><b>'+r.bl+'</b><small>bỏ trống</small></div></div>';
@@ -414,7 +420,7 @@ function statsComment(d){
  return o;
 }
 function viewStats(){
- var h='<div class="bar"><div class="wrap"><button class="tbtn" data-act="home" aria-label="Về trang đầu">⌂</button><div class="mid"><b>Thống kê chung</b></div>'+sbtn()+tbtn()+'<button class="btn sm" data-act="stats">Làm mới</button></div></div><div class="wrap" style="padding-top:18px;padding-bottom:40px">';
+ var h='<div class="bar"><div class="wrap"><button class="tbtn" data-act="home" aria-label="Về trang đầu"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg></button><div class="mid"><b>Thống kê chung</b></div>'+sbtn()+tbtn()+'<button class="btn sm" data-act="stats">Làm mới</button></div></div><div class="wrap" style="padding-top:18px;padding-bottom:40px">';
  if(S.loading)return h+'<div class="card">Đang tải số liệu…</div></div>';
  if(S.err)return h+'<div class="note">Chưa tải được số liệu thống kê. Kiểm tra kết nối mạng rồi bấm “Làm mới”.<br><small>Chi tiết: '+esc(S.why||'')+'</small></div></div>';
  var d=S.st;

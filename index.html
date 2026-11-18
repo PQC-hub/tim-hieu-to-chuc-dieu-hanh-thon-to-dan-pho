@@ -329,7 +329,7 @@ function viewHome(){
  var h='<div class="wrap pg"><div class="hbox"><h1>Tìm hiểu hoạt động thôn, tổ dân phố dành cho cán bộ cơ sở</h1></div><div class="grow"><div class="gr">\ud83d\udc4b Chào mừng bạn đã đến</div>'+sbtn()+tbtn()+'</div>';
  h+='<div class="mgrid">'+MODS.map(function(m,n){var ix=modIdx(m),sn=ix.filter(function(i){return SEEN[i]}).length,pp=pct(sn,ix.length);
   return '<button class="mcard" data-act="mod" data-n="'+n+'"><div class="mtop"><span class="mic" style="background:'+m.c+'22">'+m.ic+'</span><span class="mname">Phần '+esc(m.t.charAt(0).toLowerCase()+m.t.slice(1))+'</span></div><div class="md">'+esc(m.d)+'</div><div class="mm">'+ix.length+' bài · '+sn+'/'+ix.length+' hoàn thành</div><div class="mpr"><span class="mpb"><i style="width:'+pp+'%;background:'+m.c+'"></i></span><span class="mpp">'+pp+'%</span></div></button>'}).join('')+'</div>';
- h+='<div class="pcard"><h2>Tiến trình học tập chung</h2><div class="prow">'+ring(p)+'<div class="pt"><b>'+p+'%</b><span>'+seen+'/'+tot+' bài đã học</span><button class="btn pri" data-act="cont">'+(rl||seen?'Tiếp tục học bài':'Bắt đầu học bài')+'</button></div></div><button class="btn wide" data-act="rand20" style="margin-top:0">🎲 Thi thử ngẫu nhiên 20 câu</button><button class="btn wide" data-act="tab" data-t="me">📋 Làm trọn bộ '+tot+' câu · ôn lại · thang điểm</button></div>';
+ h+='<div class="pcard"><h2>Tiến trình học tập chung</h2><div class="prow">'+ring(p)+'<div class="pt"><b>'+p+'%</b><span>'+seen+'/'+tot+' bài đã học</span><button class="btn pri" data-act="cont">'+(rl||seen?'Tiếp tục học bài':'Bắt đầu học bài')+'</button></div></div><button class="btn wide" data-act="rand20" style="margin-top:0">🎲 Học thử ngẫu nhiên 20 câu</button><button class="btn wide" data-act="tab" data-t="me">📋 Làm trọn bộ '+tot+' câu · ôn lại · thang điểm</button></div>';
  h+='<p class="privacy">Tài liệu học tập · Biên soạn: Phạm Quang Chinh<br>Theo Nghị định 185/2026/NĐ-CP, Luật Thực hiện dân chủ ở cơ sở, Luật Đất đai 2024</p></div><div style="height:90px"></div>';
  return h;
 }
@@ -463,7 +463,7 @@ app.addEventListener('click',function(e){
  if(a==='rs_no'){askRestart=false;return render()}
  if(a==='rs_ok'){askRestart=false;clearProg(mode);return newSession(mode,BANK.map(function(_,i){return i}))}
  if(a==='cont'){var rd2=readProg('learn');if(rd2)return newSession('learn',rd2.idx,rd2);var un=allIdx().filter(function(i){return !SEEN[i]});return startNew('learn',un.length?un:allIdx())}
- if(a==='rand20'){var al=shuffle(allIdx());return startNew('exam',al.slice(0,20))}
+ if(a==='rand20'){var al=shuffle(allIdx());return startNew('learn',al.slice(0,20))}
  if(a==='mod')return startNew('learn',modIdx(MODS[+el.getAttribute('data-n')]));
  if(a==='pend_no'){pend=null;return render()}
  if(a==='pend_ok'){var pp=pend;pend=null;clearProg(pp.mode);return newSession(pp.mode,pp.idx)}

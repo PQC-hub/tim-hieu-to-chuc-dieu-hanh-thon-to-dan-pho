@@ -17,6 +17,19 @@
 :root[data-theme="dark"]{--bg:#0D1420;--card:#162131;--card2:#1C2A3D;--line:#2B3B52;--ink:#EAF0F8;--muted:#9DB0C6;
 --red:#5B9BE0;--red-h:#4A86C8;--red-bg:#14283F;--gold:#F5C547;--gold-h:#E2B23A;--gold-ink:#2B1F00;--gold-bg:#3A3010;--gold-tx:#F5D77A;
 --ok:#5FD39A;--ok-bg:#123626;--bad:#FF8A80;--bad-bg:#40191A;--blue:#6AA2FF;--band:#0B2036;--cream:#C9DFF7;--shadow:0 6px 24px rgba(0,0,0,.4)}
+/*v20 dark polish*/
+@media (prefers-color-scheme:dark){
+:root:not([data-theme="light"]) body{background:radial-gradient(900px 520px at 85% -8%,rgba(66,133,244,.28),transparent 60%),radial-gradient(700px 480px at -10% 30%,rgba(30,90,180,.22),transparent 60%),linear-gradient(180deg,#0A1830,#07101E 60%);background-attachment:fixed}
+:root:not([data-theme="light"]) .card,:root:not([data-theme="light"]) .mcard,:root:not([data-theme="light"]) .pcard{background:linear-gradient(160deg,rgba(40,78,130,.34),rgba(14,26,46,.82));border:1px solid rgba(110,160,230,.28);box-shadow:0 8px 28px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07)}
+:root:not([data-theme="light"]) .gban{background:linear-gradient(120deg,#2B66C9,#1B4E9E 55%,#2A8FA8);box-shadow:0 10px 30px rgba(30,100,220,.35),inset 0 1px 0 rgba(255,255,255,.18)}
+:root:not([data-theme="light"]) .mpb i,:root:not([data-theme="light"]) .gtr i{box-shadow:0 0 10px rgba(120,190,255,.35)}
+:root:not([data-theme="light"]) .mpb,:root:not([data-theme="light"]) .mbar,:root:not([data-theme="light"]) .gtr{background:rgba(255,255,255,.09)}
+}
+:root[data-theme="dark"] body{background:radial-gradient(900px 520px at 85% -8%,rgba(66,133,244,.28),transparent 60%),radial-gradient(700px 480px at -10% 30%,rgba(30,90,180,.22),transparent 60%),linear-gradient(180deg,#0A1830,#07101E 60%);background-attachment:fixed}
+:root[data-theme="dark"] .card,:root[data-theme="dark"] .mcard,:root[data-theme="dark"] .pcard{background:linear-gradient(160deg,rgba(40,78,130,.34),rgba(14,26,46,.82));border:1px solid rgba(110,160,230,.28);box-shadow:0 8px 28px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07)}
+:root[data-theme="dark"] .gban{background:linear-gradient(120deg,#2B66C9,#1B4E9E 55%,#2A8FA8);box-shadow:0 10px 30px rgba(30,100,220,.35),inset 0 1px 0 rgba(255,255,255,.18)}
+:root[data-theme="dark"] .mpb i,:root[data-theme="dark"] .gtr i{box-shadow:0 0 10px rgba(120,190,255,.35)}
+:root[data-theme="dark"] .mpb,:root[data-theme="dark"] .mbar,:root[data-theme="dark"] .gtr{background:rgba(255,255,255,.09)}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.5;font-size:16px}
@@ -149,6 +162,7 @@ summary{cursor:pointer;font-weight:700;padding:12px 16px;background:var(--card);
 .gtr i{display:block;height:100%;width:0;border-radius:99px;transition:width .9s ease}
 .gbf{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;min-height:20px}
 .glv{font-size:13px;font-weight:700}
+.gsub{font-size:13px;color:var(--muted);margin-top:6px}.l-none .glv{color:var(--muted)}
 .l-hi .glv{color:var(--ok)}.l-mid .glv{color:#B7791F}.l-lo .glv{color:var(--bad)}
 .l-hi i{background:var(--ok)}.l-mid i{background:var(--gold)}.l-lo i{background:var(--bad)}
 .recall{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin:0;padding:0;list-style:none}
@@ -238,7 +252,12 @@ var DATA={"THEMES":{"A":{"t":"Vị trí, tính chất, căn cứ pháp lý","d":
 var BANNER="data:image/jpeg;base64,";
 var GROUPS={m0:{t:'Văn bản pháp luật',d:'thôn, chức danh, phụ cấp, đất đai',ic:'\u2696\ufe0f',c:'#4A7FD0',mi:0},m1:{t:'Kỹ năng dân vận',d:'công khai, chăm lo dân, vận động, chuyển đổi số',ic:'\ud83d\udce3',c:'#2FAE8F',mi:1},m2:{t:'Tổ chức điều hành',d:'họp thôn, biểu quyết, điều hành, tình huống',ic:'\ud83c\udfdb\ufe0f',c:'#3DAA68',mi:2},m3:{t:'Hương ước, quy ước, tự quản',d:'Luật Dân chủ ở cơ sở, hương ước, tự quản',ic:'\ud83d\udcdc',c:'#F08A2B',mi:3}};
 var GMAP={A:'m0',B:'m0',I:'m0',G:'m1',J:'m1',K:'m1',D:'m2',E:'m2',F:'m2',C:'m3',H:'m3',L:'m3'};
-function gbars(src,res){var h='<div class="gbars">';Object.keys(GROUPS).forEach(function(k){var g=GROUPS[k],m=src[k];if(!m||!m.n)return;var p=pct(m.c,m.n),l=lvl(p);h+='<div class="gbr '+l[0]+'"><div class="gbt"><span class="gic" style="background:'+g.c+'22">'+g.ic+'</span><b>'+esc(g.t)+'</b><span class="gv">'+(res?m.c+'/'+m.n+' câu · '+p+'%':p+'%')+'</span></div><div class="gtr"><i style="background:'+g.c+'" data-w="'+p+'"></i></div><div class="gbf"><span class="glv">'+l[1]+'</span>'+(res&&p<80?'<button class="btn sm" data-act="mod" data-n="'+g.mi+'">Học lại phần này</button>':'')+'</div></div>'});return h+'</div>'}
+function cumTh(){var o={};Object.keys(GROUPS).forEach(function(k){o[k]={n:0,c:0,t:0}});BANK.forEach(function(b,i){var m=o[GMAP[b.s]];m.t++;if(SEEN[i]){m.n++;if(!WR[i])m.c++}});return o}
+function gbars(src,res){var h='<div class="gbars">';Object.keys(GROUPS).forEach(function(k){var g=GROUPS[k],m=src[k];if(!m)return;if(!res&&!m.n)return;var p=m.n?pct(m.c,m.n):0,l=m.n?lvl(p):['l-none','Chưa học'];
+var val=res?(m.n?m.c+'/'+m.n+' câu đúng · '+p+'%':'chưa học'):p+'%';
+var sub=res?'<div class="gsub">Đã học '+m.n+'/'+m.t+' câu của phần này</div>':'';
+var bt='';if(res){if(!m.n)bt='<button class="btn sm" data-act="mod" data-n="'+g.mi+'">Bắt đầu học phần này</button>';else if(p<80)bt='<button class="btn sm" data-act="mod" data-n="'+g.mi+'">Học lại phần này</button>';else if(m.n<m.t)bt='<button class="btn sm" data-act="mod" data-n="'+g.mi+'">Học tiếp phần này</button>'}
+h+='<div class="gbr '+l[0]+'"><div class="gbt"><span class="gic" style="background:'+g.c+'22">'+g.ic+'</span><b>'+esc(g.t)+'</b><span class="gv">'+val+'</span></div><div class="gtr"><i style="background:'+g.c+'" data-w="'+p+'"></i></div>'+sub+'<div class="gbf"><span class="glv">'+l[1]+'</span>'+bt+'</div></div>'});return h+'</div>'}
 var THEMES=DATA.THEMES,TYPES=DATA.TYPES,GRADES=DATA.GRADES,REF=DATA.REF,BANK=DATA.BANK;
 var ENDPOINT="https://script.google.com/macros/s/AKfycbyf-bc_nAI1Ticf1U7fwnzk958LHr-WNV_Jhupm0rz5xvi0Mi4tC1un5tniopdKRncwVA/exec";
 var app=document.getElementById('app');
@@ -295,7 +314,7 @@ function compute(){
 }
 function commentary(r){
  var out=[],weak=[],bestK=null,bp=-1;
- Object.keys(r.th).forEach(function(k){var p=pct(r.th[k].c,r.th[k].n);if(p<70)weak.push(GROUPS[k].t);if(p>bp){bp=p;bestK=k}});
+ var ct=cumTh();Object.keys(ct).forEach(function(k){if(!ct[k].n)return;var p=pct(ct[k].c,ct[k].n);if(p<70)weak.push(GROUPS[k].t);if(p>bp){bp=p;bestK=k}});
  if(r.c===r.n)out.push('Bạn trả lời đúng toàn bộ các tình huống.');
  if(bestK&&bp>=70)out.push('Phần làm tốt nhất: '+GROUPS[bestK].t+' ('+bp+'%).');
  if(weak.length)out.push('Nên ôn lại: '+weak.join('; ')+'.');
@@ -404,7 +423,7 @@ function viewResult(){
  if(S.sent)h+='<p class="best" style="margin:10px 0 0">✔ Kết quả đã được gửi đi (không ghi tên, chỉ kèm mã ngẫu nhiên lưu trên thiết bị này). Máy chủ không báo xác nhận nên chưa thể bảo đảm đã ghi nhận.</p>';
  h+='<div class="rstats"><div class="rs"><b>'+r.n+'</b><small>tổng số câu</small></div><div class="rs ok"><b>'+r.c+'</b><small>đúng</small></div><div class="rs bad"><b>'+r.wr+'</b><small>sai</small></div><div class="rs"><b>'+r.bl+'</b><small>bỏ trống</small></div></div>';
  var cm=commentary(r);if(cm.length)h+='<div class="comments">'+cm.map(function(c){return '<p>'+esc(c)+'</p>'}).join('')+'</div>';
- h+='<div class="card"><div class="sec-t">Kết quả theo 4 phần nội dung</div>'+gbars(r.th,true)+'</div>';
+ h+='<div class="card"><div class="sec-t">Kết quả theo 4 phần nội dung <small style="font-weight:400;color:var(--muted)">(tích lũy các lần đã học)</small></div>'+gbars(cumTh(),true)+'</div>';
  var wrongIdx=[];S.qs.forEach(function(q,k){var a=S.ans[k];if(!(a!==undefined&&q.opts[a].ok))wrongIdx.push(k)});
  h+='<div class="acts"><button class="btn pri" data-act="share">📤 Chia sẻ kết quả (Zalo, Facebook…)</button>'+(wrongIdx.length?'<button class="btn" data-act="redo">Ôn lại '+wrongIdx.length+' câu sai</button>':'')+'<button class="btn" data-act="again">Làm lại từ đầu</button><button class="btn" data-act="home">Về trang đầu</button></div>';
  if(wrongIdx.length){h+='<div class="sec"><div class="sec-t">Các câu cần xem lại</div><ul class="recall">';wrongIdx.forEach(function(k){var q=S.qs[k];h+='<li><b>'+esc(q.b.r)+':</b> '+esc(q.b.q)+'<br>'+esc(q.b.e)+'</li>'});h+='</ul></div>'}
